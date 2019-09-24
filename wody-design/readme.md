@@ -1,4 +1,11 @@
 ## Wody mock-up
+### Info
+Some panels have been avoided for timing reasons but will be implemented in the near future.
+
+### Software used
+Adobe XD
+
+
 
 ![panel1](./images/1.jpg)
 ![panel2](./images/2.jpg)
@@ -16,8 +23,3 @@
 ![panel14](./images/14.jpg)
 ![panel15](./images/15.jpg)
 ![panel16](./images/16.jpg)
-###Info
-Some panels have been avoided for timing reasons but will be implemented in the near future.
-
-## Software used
-Adobe XD
