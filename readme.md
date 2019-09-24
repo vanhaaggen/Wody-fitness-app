@@ -71,4 +71,5 @@ Once the questionnaire is completed, the user will access the Home panel where h
 Javascript, ReactJS, Node.js, Express, MongoDB & Mongoose.
 
 ### To do 
+Finish settings 
 App testing
