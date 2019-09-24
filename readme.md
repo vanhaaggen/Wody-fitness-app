@@ -42,7 +42,7 @@ Once the questionnaire is completed, the user will access the Home panel where h
 
 ### Flow charts
 
-![flow chart schema](./wody-doc/images/ucd.jpg)
+![flow chart schema](./wody-doc/images/ucd1.jpg)
 
 
 ## Technical Description 
