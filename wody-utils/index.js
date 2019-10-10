@@ -1,5 +1,6 @@
 module.exports = {
     validate: require('./validate'),
     randomDate: require('./randomDate'),
-    randomator: require('./fisherYates')
+    randomator: require('./fisherYates'),
+    timeDiff: require('./timeDiff')
 }

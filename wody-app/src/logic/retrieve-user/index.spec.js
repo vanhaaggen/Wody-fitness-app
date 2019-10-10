@@ -1,10 +1,9 @@
 import logic from '..'
-import { database, models } from 'my-stuff-data'
+import { database, models } from 'wody-data'
 import jwt from 'jsonwebtoken'
 
 const { User } = models
 
-// const { env: { DB_URL_TEST }} = process // WARN this destructuring doesn't work in react-app :(
 const REACT_APP_DB_URL_TEST = process.env.REACT_APP_DB_URL_TEST
 const REACT_APP_JWT_SECRET_TEST = process.env.REACT_APP_JWT_SECRET_TEST
 

@@ -80,6 +80,7 @@ export default withRouter(function ({ history }) {
                     return <>
                         <div className="date-container">
                             <p className="fav-bold" key={fav._id} onClick={() => handleCheckFav(fav._id)}>{new Date(fav.date).toUTCString().slice(0, 13)}</p>
+                            <p className="time-spent">{`${fav.timefinish} min`}</p>
                             <FontAwesomeIcon className="date-container--cross" icon={faTimes} onClick={() => handleUnFav(fav._id)} />
                         </div>
                         {workoutId === fav._id && !mapList && <FavList />}

@@ -4,31 +4,33 @@ import Countdown from 'react-countdown-now'
 import './index.sass'
 import logic from '../../logic'
 import { Route, withRouter } from 'react-router-dom'
-import Settings from '../Settings'
-import Favorites from '../Favorites'
 import GenerateWorkout from '../GenerateWorkout'
+import HomeNavigation from '../HomeNavigationBar'
 import ReactPlayer from 'react-player'
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import isUserLoggedIn from '../../logic/is-user-logged-in'
+
 
 
 export default withRouter(function ({ history, onLogout }) {
-    const [view, setView] = useState()
-    const [storedWorkout, setStoredWorkout] = useState(JSON.parse(sessionStorage.getItem("my-current-workout")))
+    const [storedWorkout] = useState(JSON.parse(sessionStorage.getItem("my-current-workout")))
     const [user, setUser] = useState()
     const [navBar, setNavBar] = useState(false)
     const [timer, setTimer] = useState('noTimer')
     const [home, setHome] = useState(true)
     const [workoutButton, setWorkoutButton] = useState('start-workout')
-    const [fav, setFav] = useState(false)
-    const [favorites, setFavorites] = useState()
+    const [favorite, setFavorite] = useState(false)
+    const [startTime, setStartTime] = useState()
+    const [tSpent, setTSpent] = useState()
+
+
 
     useEffect(() => {
         (async () => {
             const userdata = await logic.retrieveUser()
-
             setUser(userdata)
         })()
     }, [history.location])
@@ -37,13 +39,10 @@ export default withRouter(function ({ history, onLogout }) {
         (async () => {
             if (storedWorkout) {
                 setHome(false)
-
-                const workoutIdSession = String(storedWorkout.user._id)
+                const workoutIdSession = String(JSON.parse(sessionStorage.getItem("my-current-workout")).user._id)
                 const response = await logic.retrieveFav()
-
                 const favInHistoric = response.find(item => String(item._id) === workoutIdSession)
-
-                favInHistoric === true && fav(true)
+                favInHistoric !== undefined && setFavorite(true)
             }
         })()
     }, [])
@@ -51,14 +50,14 @@ export default withRouter(function ({ history, onLogout }) {
     const handleSaveWorkout = async () => {
         try {
 
-            if (!user.current.length && !favorites) {
-                await logic.toogleFav(String(storedWorkout.user._id))
-                setFav(true)
+            if (!user.current.length) {
+                await logic.toogleFav(JSON.parse(sessionStorage.getItem("my-current-workout")).user._id)
+                setFavorite(true)
 
             } else if (user.current.length > 0) {
                 const workoutId = user.current[0]._id.toString()
                 await logic.toogleFav(workoutId)
-                setFav(true)
+                setFavorite(true)
             }
 
         } catch ({ message }) {
@@ -66,29 +65,18 @@ export default withRouter(function ({ history, onLogout }) {
         }
     }
 
-
     const handlegoBackHome = () => {
         setHome(true)
-        setFav(false)
+        setFavorite(false)
         setTimer('noTimer')
         setWorkoutButton('start-workout')
-        // sessionStorage.removeItem('my-current-workout')
+        sessionStorage.removeItem('my-current-workout')
     }
 
     const handleNavClick = (event) => {
         event.preventDefault()
         setNavBar(!navBar)
-    }
 
-    const handleGoToFav = (event) => {
-        event.preventDefault()
-        setView('fav-panel')
-        history.push('/favorites')
-    }
-
-    const handleGoToSettings = (event) => {
-        event.preventDefault()
-        history.push('/settings')
     }
 
     const handleCalculateWorkout = (event) => {
@@ -96,7 +84,6 @@ export default withRouter(function ({ history, onLogout }) {
         setHome(false)
 
     }
-
 
     //timer function
     const startClock = ({ seconds, completed }) => {
@@ -115,10 +102,15 @@ export default withRouter(function ({ history, onLogout }) {
         }
     }
 
-    const Finished = () => <span className="time">Finished</span>
+    const Finished = () => {
+        return <div className="time-container">
+            <p className="time">Finished</p>
+            <p className="time-info">{`in ${tSpent} min`}</p>
+        </div>
+    }
+
 
     const timeRemain = ({ minutes, seconds, completed }) => {
-
         if (completed) {
             setTimeout(() => {
                 setHome(false)
@@ -129,14 +121,25 @@ export default withRouter(function ({ history, onLogout }) {
             return <span className="time">{minutes}:{seconds}</span>
         }
     }
-    const stopClock = () => {
-        setTimer('pause')
-    }
 
+    const stopClock = async () => {
+
+        const endTime = new Date().toString().slice(19, 24).split(':')
+        const timeSpent = logic.timeDiff(startTime, endTime)
+        const workoutId = JSON.parse(sessionStorage.getItem("my-current-workout")).user._id
+        const data = { timefinish: timeSpent }
+        setTSpent(timeSpent)
+        setTimer('finish')
+
+        try {
+            await logic.updateWorkout(workoutId, data)
+        } catch ({ message }) {
+            console.log(message)
+        }
+    }
 
     return <>
         <header className="home-header">
-            {view === 'fav-panel' && <Route path="/favorites" render={() => <Favorites />} />}
             <div>
                 <div className="home-header--logo"></div>
             </div>
@@ -144,28 +147,23 @@ export default withRouter(function ({ history, onLogout }) {
                 <span className="home-header--user-name">Hi, {user && user.name}</span>
             </div>
 
-            {navBar === false && <FontAwesomeIcon className="home-header--icon" icon={faBars} onClick={handleNavClick} />}
-            {navBar === true && <> <FontAwesomeIcon className="home-header--icon" icon={faTimes} onClick={handleNavClick} />
-                <nav className="nav-container">
-                    <ul className="nav-container__ul">
-                        <li className="nav-container__ul-li">
-                            <a key={'a-favorite'} className="nav-container__ul-li--style" href="" onClick={handleGoToFav}>Favorite workouts</a>
-                        </li>
-                        <li className="nav-container__ul-li mid">
-                            <a key={'a-setting'} className="nav-container__ul-li--style" href="" onClick={handleGoToSettings}>Settings</a>
-                        </li>
-                        <li className="nav-container__ul-li">
-                            <a key={'a-signout'} className="nav-container__ul-li--style" href="" onClick={onLogout}>Sign out</a>
-                        </li>
-                    </ul>
-                </nav>
+            {navBar === false && <>
+                <div className="iconContainer">
+                    <FontAwesomeIcon className="home-header--icon" icon={faBars} onClick={handleNavClick} />
+                </div>
             </>}
 
+            {navBar === true && <>
+                <div className="iconContainer">
+                    <FontAwesomeIcon className="home-header--icon" icon={faTimes} onClick={handleNavClick} />
+                </div>
+            </>}
         </header>
+        {navBar === true && <HomeNavigation onLogout={onLogout} />}
 
         <section className="mid-container">
             {timer === 'noTimer' && <>
-                <div className="timer-container">
+                <div className="text-container">
                     <div className="left-stripe">
                         <h2 className="left-stripe--text">Today is the day you are going to change your path</h2>
                     </div>
@@ -173,10 +171,16 @@ export default withRouter(function ({ history, onLogout }) {
             </>}
 
             {timer === 'timer' && <Countdown date={Date.now() + 3000} renderer={startClock} />}
-            {timer === 'start' && <Countdown date={Date.now() + storedWorkout.time * 60000} renderer={timeRemain} />}
-            {timer === 'pause' && <Finished />}
-
+            {timer === 'start' && <Countdown
+                date={Date.now() + JSON.parse(sessionStorage.getItem("my-current-workout")).time[0] * 60000}
+                onStart={() => {
+                    const date = new Date()
+                    setStartTime(date.toString().slice(19, 24).split(':'))
+                }}
+                renderer={timeRemain} />}
+            {timer === 'finish' && <Finished />}
         </section>
+
 
         <section className="home">
             {home === true && <>
@@ -191,11 +195,15 @@ export default withRouter(function ({ history, onLogout }) {
             </>}
             {home === false && <>
                 <div className="start-container" >
-                    {workoutButton === 'start-workout' ? <button className="workout-bttn" onClick={startClock}>Start workout</button> : <button className="done-bttn" onClick={stopClock}>Done</button>}
-                    {fav === false ? <button className="save-bttn" onClick={handleSaveWorkout}>Save wody</button> : <span className="saved-mssg">saved</span>}
+                    {workoutButton === 'start-workout' ? <button className="workout-bttn" onClick={startClock}>Start workout</button> : <button className={timer === 'finish' ? "no-event" : "event"} onClick={stopClock}>End workout</button>}
+                    <div className="saved-bttn__container">
+                        {favorite === false && <button className="saved-bttn__container--off" onClick={handleSaveWorkout}>Save wody</button>}
+                        {favorite === true && <button className="saved-bttn__container--on">saved</button>}
+                    </div>
 
                 </div>
-                <GenerateWorkout /> </>}
+                <GenerateWorkout />
+            </>}
 
         </section>
         <section className="footer-container">

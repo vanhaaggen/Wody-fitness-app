@@ -7,7 +7,8 @@ module.exports = {
     calculateWorkout: require('./movement/calcworkout'),
     favWorkout: require('./movement/tooglefavworkout'),
     retrieveFavWorkout: require('./movement/retrievefavworkout'),
-    endWorkout: require('./movement/endworkout')
+    endWorkout: require('./movement/endworkout'),
+    updateWorkout: require('./movement/updateworkout')
 
 
 }

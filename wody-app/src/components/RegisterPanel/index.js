@@ -26,38 +26,43 @@ export default withRouter(function ({ history, onBack }) {
         }
     }
 
-    return <div className="register-container">
-        <Route path='/registersucess' render={() => <Registersuccess />} />
-        <div className="register-header">
-            <div className="header logo"></div>
-            <p className="header text">You are only one step away to become a better version of yourself. </p>
+    return <>
+        <div className="container">
+            <Route path='/registersucess' render={() => <Registersuccess />} />
+            <div className="register-header">
+                <div className="logo"></div>
+                <p className="text">You are only one step away to become a better version of yourself. </p>
+            </div>
+            <p className="p-header">Create an account</p>
+            <form className="form" onSubmit={event => {
+                event.preventDefault()
+
+                const { target: { name: { value: name }, surname: { value: surname }, email: { value: email }, password: { value: password } } } = event
+
+                handleRegister(name, surname, email, password)
+
+            }}>
+                <label className="label-placeholder" htmlFor="name">Name</label>
+                <input className="input-field" type="text" name="name" id="name" />
+                <label className="label-placeholder" htmlFor="surname">Surname</label>
+                <input className="input-field" type="text" name="surname" id="surname" />
+                <label className="label-placeholder" htmlFor="email">E-mail</label>
+                <input className="input-field" type="email" name="email" id="email" />
+                <label className="label-placeholder" htmlFor="password">Password</label>
+                <input className="input-field" type="password" name="password" id="password" />
+                {errorMessage && <p className="login-error">{errorMessage}</p>}
+                <button className="bttn">Sign up</button>
+            </form>
+
+            <p className="p-login">Do you have an account?<a className="a-login" onClick={handleGoToLogin}> sign in here</a></p>
+
         </div>
-        <p className="p-header">Create an account</p>
-        <form className="form" onSubmit={event => {
-            event.preventDefault()
-
-            const { target: { name: { value: name }, surname: { value: surname }, email: { value: email }, password: { value: password } } } = event
-
-            handleRegister(name, surname, email, password)
-
-        }}>
-            <label className="label-placeholder" htmlFor="name">Name</label>
-            <input className="input-field" type="text" name="name" id="name" />
-            <label className="label-placeholder" htmlFor="surname">Surname</label>
-            <input className="input-field" type="text" name="surname" id="surname" />
-            <label className="label-placeholder" htmlFor="email">E-mail</label>
-            <input className="input-field" type="email" name="email" id="email" />
-            <label className="label-placeholder" htmlFor="password">Password</label>
-            <input className="input-field" type="password" name="password" id="password" />
-            {errorMessage && <p className="login-error">{errorMessage}</p>}
-            <button className="bttn">Sign up</button>
-        </form>
-
-        <p className="p-login">Do you have an account?<a className="a-login" onClick={handleGoToLogin}> sign in here</a></p>
-        <FontAwesomeIcon className="icon" icon={faArrowLeft} onClick={event => {
-            event.preventDefault()
-            onBack()
-        }} />
-    </div>
+        <footer className="registerFooter">
+            <FontAwesomeIcon className="icon" icon={faArrowLeft} onClick={event => {
+                event.preventDefault()
+                onBack()
+            }} />
+        </footer>
+    </>
 
 })

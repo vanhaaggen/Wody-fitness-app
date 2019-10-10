@@ -17,15 +17,21 @@ module.exports = function (id) {
         const user = await User.findById(id)
 
         if (!user) throw new Error('user does not exist')
+
         //destructure needed queries
         const { gender, goal, fitnesslevel } = user
         //find movement that match with queries
         const movements = await Movement.find({ gender: gender, goal: goal, fitnesslevel: fitnesslevel }).lean()
 
-        const movementsClone = [...movements]
+        // const movementsClone = [...movements]
 
         //order result randomly in array
-        let selectRandomMovement = randomator(movementsClone)
+        let selectRandomMovement = randomator(movements)
+
+        let isReverse = Math.random() >= 0.5 ? true : false
+
+        isReverse === true ? selectRandomMovement.reverse() : ''
+
         //keep only the first 5 array values
         selectRandomMovement.splice(5)
 

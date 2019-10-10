@@ -1,18 +1,18 @@
 import logic from '..'
-import { database, models } from 'my-stuff-data'
+import { database, models } from 'wody-data'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 const { User } = models
 
 // const { env: { DB_URL_TEST }} = process // WARN this destructuring doesn't work in react-app :(
-const REACT_APP_DB_URL_TEST = process.env.REACT_APP_DB_URL_TEST
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL
 const REACT_APP_JWT_SECRET_TEST = process.env.REACT_APP_JWT_SECRET_TEST
 
 const { random } = Math
 
 describe('logic - authenticate user', () => {
-    beforeAll(() => database.connect(REACT_APP_DB_URL_TEST))
+    beforeAll(() => database.connect(REACT_APP_API_URL))
 
     let name, surname, email, password, id
 

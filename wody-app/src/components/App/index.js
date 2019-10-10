@@ -13,6 +13,8 @@ import Userdata from '../UserdataPanel'
 import Settings from '../Settings'
 import Favorites from '../Favorites'
 
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInstagram, faTwitter, faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
 
@@ -85,7 +87,7 @@ export default withRouter(function ({ history }) {
           </ul>
         </nav>
 
-        <section className="footer">
+        <footer className="footer">
           <div className="footer ">
             <p className="footer app">wody- 2019 CMH</p>
             <a href="#" className="footer--text">Legal</a>
@@ -96,9 +98,7 @@ export default withRouter(function ({ history }) {
             <FontAwesomeIcon className="insta" icon={faFacebookSquare} />
             <FontAwesomeIcon className="insta" icon={faTwitter} />
           </div>
-
-
-        </section>
+        </footer>
       </>}
     <Route path="/register" render={() => <Register onBack={handleBack} />} />
     <Route path="/registersuccess" render={() => <Registersuccess />} />

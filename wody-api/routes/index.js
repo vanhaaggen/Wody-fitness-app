@@ -12,6 +12,7 @@ const calculateWorkout = require('./workout-calculate')
 const toogleFavWorkout = require('./workout-toogle-fav')
 const endWorkout = require('./workout-end')
 const retrieveFavWorkout = require('./workout-retrieve-fav')
+const updateWorkout = require('./workout-update')
 
 
 const router = Router()
@@ -29,6 +30,7 @@ router.post('/users/calcworkout', [tokenMiddleware, jsonBodyParser], calculateWo
 router.post('/users/workoutfav/:workoutId', [tokenMiddleware, jsonBodyParser], toogleFavWorkout)
 router.post('/users/workoutend/:workoutId', [tokenMiddleware, jsonBodyParser], endWorkout)
 router.get('/users/retrievefav', [tokenMiddleware, jsonBodyParser], retrieveFavWorkout)
+router.patch('/workouttime/:workoutId', jsonBodyParser, updateWorkout)
 
 
 module.exports = router

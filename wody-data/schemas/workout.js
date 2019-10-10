@@ -5,13 +5,15 @@ const { Schema } = mongoose
 module.exports = new Schema({
     fav: {
         type: Boolean,
+        default: false
     },
     date: {
         type: Number,
         default: Date.now()
     },
     timefinish: {
-        type: Number
+        type: String,
+        default: 'No res.'
     },
     sets: {
         type: Array,

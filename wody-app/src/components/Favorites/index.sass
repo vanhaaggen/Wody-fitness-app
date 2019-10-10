@@ -15,17 +15,20 @@ $red: #D63E3E
     
 .fav-bold
     font-weight: bold
+    padding-left: 0.8rem
+
+.time-spent
+    width: 20%
+    margin: 0
+    font-size: 0.8rem
+    font-weight: bold
 
 table
-    transition: 1s ease-out
-    border-left: 5px solid $red
+    margin-top: -17px
+    border: 5px solid $red
     border-collapse: collapse
-    width: 95vw
-   
+    width: 100%
 
-table tr:nth-child(even)
-    background-color: #f2f2f2
-    
 .table-top
     font-size: 0.8rem
     background-color: $red
@@ -34,16 +37,13 @@ table tr:nth-child(even)
      
 .table-data
     border-left: 5px solid $red
-    height: 40px
-
-.favorite-container
-    padding-left: 0.8rem
+    height: 40px    
 
 .date-container
     display: flex
     flex-direction: row
     justify-content: space-between
-    align-items: center
+    align-items: baseline
     margin-bottom: 1rem
 
     &--cross
