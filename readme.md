@@ -3,11 +3,11 @@
 Wody fitness is a nonprofit app that was intended as part of a coding  Bootcamp final project to show the skills accquired. All multimedia elements used in this project are owned by crossfit and will be replaced by own material soon. 
  
 # WODY  fitness web-app 
-![gif](https://gph.is/g/ZPOwNYX)
+![gif](https://media.giphy.com/media/hWddcO7xQWCqIew5rH/giphy.gif) ![logo](./wody-doc/images/logo.png) 
 
 ### check it out!
-|![logo](./wody-doc/images/logo.png) | The current version of Wody is mobile only, hence I recommend you to scan the QR code with your mobile device to get the best user experience possible.  | ![qrcode](./wody-doc/images/frames.jpg) |
-|-|:-|-|
+| The current version of Wody is mobile only, hence I recommend you to scan the QR code with your mobile device to get the best user experience possible.  | ![qrcode](./wody-doc/images/frames.jpg) |
+|:-|-|
 
 
 ## Why WODY?
