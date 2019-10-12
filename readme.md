@@ -19,7 +19,7 @@ The current version of Wody is mobile only, hence I recommend you to scan the QR
 
 The idea of WODY arises from the need to find a solution to a personal problem, the adaptation of daily workouts or [WOD](https://openboxmagazine.com/que-es-un-wod-entrenamiento-del-dia/)'s to personal goals. When you sign up for a functional training Box or gym, daily workouts are designed for a group of people with the goal of having a good time, letting off steam and getting fit. When the goal goes further, how to gain more muscle mass. Those generalized workouts fall short. This is where WODY will help us.
 
-WODY is based on the benefit of the randomness of the exercises through the [HIIT](https://es.wikipedia.org/wiki/Entrenamiento_de_intervalos_de_alta_intensidad) (High Intensive Interval Training) methodology. On the days that the user wants to train, WODY will generate a random training table, with no more than six movements. This table will take into account the training of the last session of the user so as not to repeat them at least in the next 48 hours. In this way WODY ensures that your muscles have time to recover.
+WODY is based on the benefit of the randomness of the exercises through the [HIIT](https://es.wikipedia.org/wiki/Entrenamiento_de_intervalos_de_alta_intensidad) (High Intensive Interval Training) methodology. On the days that the user wants to train, WODY will generate a random training table with 5 movements. 
 
 ## Planning
 
