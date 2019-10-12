@@ -1,6 +1,6 @@
 
 ![logo](./wody-doc/images/wody-logo.png)
-## Disclaimer 
+## Disclaimer ⚠ 
 
 Wody fitness is a nonprofit app that was intended as part of a coding  Bootcamp final project to show the skills accquired. All multimedia elements used in this project are owned by crossfit and will be replaced by own material soon. 
 
