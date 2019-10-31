@@ -6,7 +6,7 @@ Wody fitness is a nonprofit app that was intended as part of a coding  Bootcamp 
 
 The current version of Wody is mobile only, hence I recommend you to scan the QR code with your mobile device to get the best user experience possible.
 
-|If you are reading this from your Laptop or PC, scann this code  | ![qrcode](./wody-doc/images/frames.jpg) |
+|If you are reading this from your Laptop or PC, scann this code  | ![qrcode](./wody-doc/images/frames.png) |
 |:-|-|
 ###
 |If you are reading this from a mobile device, follow this link| [Wody fitness app](https://wody.surge.sh)|
